@@ -5,6 +5,12 @@ jobs:
   lint:
     runs-on: ubuntu-20.04
     steps:
+      - name: Check For --no-actions Flag
+        if: ${{ contains(github.event.commits[0].message, '--no-actions') }}
+        run: exit 0
+      - name: Check For --no-lint Flag
+        if: ${{ contains(github.event.commits[0].message, '--no-lint') }}
+        run: exit 0
       - name: Checkout Repository
         uses: actions/checkout@v2
       - name: Install Deno

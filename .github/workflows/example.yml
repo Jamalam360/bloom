@@ -5,13 +5,19 @@ jobs:
   update-example:
     runs-on: ubuntu-20.04
     steps:
+      - name: Check For --no-actions Flag
+        if: ${{ contains(github.event.commits[0].message, '--no-actions') }}
+        run: exit 0
+      - name: Check For --no-example Flag
+        if: ${{ contains(github.event.commits[0].message, '--no-example') }}
+        run: exit 0
       - name: Checkout Repository
         uses: actions/checkout@v2
       - name: Install Deno
         uses: denoland/setup-deno@v1
         with:
           deno-version: vx.x.x
-      - name: Run Linter
+      - name: Update Example
         run: |
           deno run --allow-read --allow-write ./.github/exampleUpdater.ts
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -21,4 +27,4 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}s
+          branch: ${{ github.ref }}
