@@ -6,10 +6,10 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Check For --no-actions Flag
-        if: ${{ contains(github.event.commits[0].message, '--no-actions') }}
+        if: ${{ contains(github.event.commits.*.message, '--no-actions') }}
         run: exit 0
       - name: Check For --no-format Flag
-        if: ${{ contains(github.event.commits[0].message, '--no-format') }}
+        if: ${{ contains(github.event.commits.*.message, '--no-format') }}
         run: exit 0
       - name: Checkout Repository
         uses: actions/checkout@v2
