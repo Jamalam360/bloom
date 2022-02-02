@@ -35,7 +35,6 @@ console.log(filter.toBitString());
 
 console.log(filter.check("in filter"));
 console.log(filter.check("not in filter"));
-
 ```
 
 The above example is pulled from the main branch using GitHub Actions.
