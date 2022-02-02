@@ -1,4 +1,5 @@
 import { BloomFilter } from "../mod.ts";
+import { murmurhash3_32_gc } from "../murmur.ts";
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
 
 const bf = new BloomFilter(10, 0.05);
@@ -44,5 +45,18 @@ Deno.test({
       const element = absent[index];
       assertEquals(bf.check(element), false);
     }
+  },
+});
+
+Deno.test({
+  name: "Test MurmurHash",
+  fn(): void {
+    assertEquals(murmurhash3_32_gc("hello world", 100), 719762924);
+    assertEquals(murmurhash3_32_gc("", 100), 4258159850);
+    assertEquals(murmurhash3_32_gc(" ", 100), 2331019784);
+
+    assertEquals(murmurhash3_32_gc("hello world", 1), 373570264);
+    assertEquals(murmurhash3_32_gc("", 1), 1364076727);
+    assertEquals(murmurhash3_32_gc(" ", 1), 1326412082);
   },
 });

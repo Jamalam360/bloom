@@ -12,14 +12,14 @@
  */
 
 export function murmurhash3_32_gc(key: string, seed: number) {
-  var remainder, bytes, h1, h1b, c1, c1b, c2, c2b, k1, i;
-
-  remainder = key.length & 3; // key.length % 4
-  bytes = key.length - remainder;
+  let h1b, h1, k1;
+  let i = 0;
   h1 = seed;
-  c1 = 0xcc9e2d51;
-  c2 = 0x1b873593;
-  i = 0;
+
+  const remainder = key.length & 3; // key.length % 4
+  const bytes = key.length - remainder;
+  const c1 = 0xcc9e2d51;
+  const c2 = 0x1b873593;
 
   while (i < bytes) {
     k1 = (key.charCodeAt(i) & 0xff) |
@@ -46,8 +46,10 @@ export function murmurhash3_32_gc(key: string, seed: number) {
   switch (remainder) {
     case 3:
       k1 ^= (key.charCodeAt(i + 2) & 0xff) << 16;
+      break;
     case 2:
       k1 ^= (key.charCodeAt(i + 1) & 0xff) << 8;
+      break;
     case 1:
       k1 ^= key.charCodeAt(i) & 0xff;
 
