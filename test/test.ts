@@ -2,7 +2,7 @@ import { BloomFilter } from "../mod.ts";
 import { murmurhash3_32_gc } from "../murmur.ts";
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
 
-const bf = new BloomFilter(10, 0.05);
+const bf = new BloomFilter(10, 0.02);
 
 const present = [
   "word",
